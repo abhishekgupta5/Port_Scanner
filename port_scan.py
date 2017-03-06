@@ -21,3 +21,34 @@ args = parser.parse_args()
 host = args.host #The hostname to scan for open ports
 
 ip = socket.gethostbyname(host) #Converts the hostname into IP address
+
+if (args.startport) and args.endport:
+    start_port = int(args.startport)
+    end_port = int(args.endport)
+else:
+    flag = 1
+
+open_ports = []
+
+common_ports = {
+    '21': 'FTP',
+    '22': 'SSH',
+    '23': 'TELNET',
+    '25': 'SMTP',
+    '53': 'DNS',
+    '69': 'TFTP',
+    '80': 'HTTP',
+    '109': 'POP2',
+    '110': 'POP3',
+    '123': 'NTP',
+    '143': 'IMAP',
+    '156': 'SQL-SERVER',
+    '389': 'LDAP',
+    '443': 'HTTPS',
+    '546': 'DHCP-CLIENT',
+    '547': 'DHCP-SERVER',
+    '995': 'POP3-SSL',
+    '993': 'IMAP-SSL',
+    '3306': 'MYSQL',
+    }
+
