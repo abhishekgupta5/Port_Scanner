@@ -92,7 +92,7 @@ try:
             p = int(p)
             print(p),
             response = check_port(host,p)
-            if response == 0
+            if (response == 0):
                 open_ports.append(p)
                 sys.stdout.write('\b'* len(str(p)))
     else:
@@ -105,3 +105,30 @@ try:
                 open_ports.append(p)
             if not p == end_port:
                 sys.stdout.write('\b'* len(str(p)))
+    print("\nScanning completed at %s" % (time.strftime("%I:%M:%S:%p")))
+    ending_time = time.time()
+    total_time = ending_time - starting_time
+    print("="*50)
+    print("\tScan report: %s" % (host))
+    print("="*50)
+
+    if (total_time <= 60):
+        total_time = str(round(total_time, 2))
+        print("Scan took %s seconds" %(total_time))
+    else:
+        total_time = total_time/60
+        print("Scan took %s minutes" %(total_time))
+    if open_ports:
+        print("Open ports: ")
+        for i in sorted(open_ports):
+            service = get_service(i)
+            if not service:
+                service = "Unknown Service"
+            print("\t%s %s: Open" %(i, service))
+    else:
+        print("Sorry, No open ports found!!")
+
+except KeyboardInterrupt:
+    print("You pressed ctrl-c. Exiting.")
+    sys.exit(1)
+
