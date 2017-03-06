@@ -52,3 +52,56 @@ common_ports = {
     '3306': 'MYSQL',
     }
 
+starting_time = time.time()
+print('+'*40)
+print('\tSimple Port Scanner!!')
+print('+'*40)
+
+if (flag):
+    print('Scanning for most common ports on %s' % (host))
+else:
+    print('Scanning %s from port %s - %s: ' % (host, start_port, end_port))
+
+print("Scanning started at %s" % (time.strftime("%I:%M:%S %p")))
+
+def check_port(host, port, result = 1):
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(0.5)
+        r = sock.connect_ex((host,port))
+        if r == 0:
+            result = r
+        sock.close()
+    except Exception, e:
+        pass
+    return result
+
+def get_service(port):
+    port = str(port)
+    if port in common_ports:
+        return common_ports[port]
+    else:
+        return 0
+
+try:
+    print("scan in progress")
+    print("connecting to port")
+    if flag:
+        for p in sorted(common_ports):
+            sys.stdout.flush()
+            p = int(p)
+            print(p),
+            response = check_port(host,p)
+            if response == 0
+                open_ports.append(p)
+                sys.stdout.write('\b'* len(str(p)))
+    else:
+        for p in range(start_port, end_port+1):
+            sys.stdout.flush()
+            p = int(p)
+            print(p),
+            response = check_port(host,p)
+            if response == 0:
+                open_ports.append(p)
+            if not p == end_port:
+                sys.stdout.write('\b'* len(str(p)))
